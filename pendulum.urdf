@@ -48,13 +48,12 @@
     <joint name="j2" type="fixed">
         <parent link="link"/> 
         <child link="eef"/>
-        <origin xyz="0 0 -0.5" rpy="0 0 0"/> <!-- Положение конечного элемента относительно маятника -->
+        <origin xyz="0 0 -0.5" rpy="0 0 0"/>
     </joint>
 
     <!-- Точка -->
     <link name="eef">
         <visual>
-            <!-- Визуальное представлениеа -->
             <geometry>
                 <sphere radius="0.05"/>
             </geometry>
