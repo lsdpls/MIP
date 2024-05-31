@@ -1,0 +1,82 @@
+<robot name="pendulum"> 
+
+    <link name="world"/>
+
+    <!-- Фиксированное соединение между миром и базой -->
+    <joint name="world_to_base" type="fixed">
+        <parent link="world"/> <!-- Родительское звено -->
+        <child link="base"/> <!-- Дочернее звено -->
+        <origin xyz="0 0 2" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Основание -->
+    <link name="base">
+        <visual>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+
+    <!-- Вращающееся точка -->
+    <joint name="j1" type="revolute">
+        <parent link="base"/> 
+        <child link="link"/> 
+        <origin xyz="0 0 0" rpy="0 0 0"/> 
+        <axis xyz="1 0 0"/> <!-- Ось вращения -->
+        <limit effort="0" velocity="0"/> 
+        <dynamics damping="0.1" friction="0"/>
+    </joint>
+
+    <!-- Звено маятника -->
+    <link name="link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.005" length="0.5"/>
+            </geometry>
+            <origin xyz="0 0 -0.25" rpy="0 0 0"/> <!-- Положение маятника относительно базы -->
+            <material name="gray"/> 
+        </visual>
+        <inertial>
+            <mass value="0"/> <!-- Масса -->
+            <inertia ixx="0" iyy="0" izz="0" ixy="0" ixz="0" iyz="0"/> <!-- Инерция -->
+        </inertial>
+    </link>
+
+    <!-- Фиксированное соединение между звеном и точкой -->
+    <joint name="j2" type="fixed">
+        <parent link="link"/> 
+        <child link="eef"/>
+        <origin xyz="0 0 -0.5" rpy="0 0 0"/> <!-- Положение конечного элемента относительно маятника -->
+    </joint>
+
+    <!-- Точка -->
+    <link name="eef">
+        <visual>
+            <!-- Визуальное представлениеа -->
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <inertial>
+            <mass value="1"/> <!-- Масса -->
+            <inertia ixx="0" iyy="0" izz="0" ixy="0" ixz="0" iyz="0"/> <!-- Инерция -->
+        </inertial>
+    </link>
+
+    <!-- Определение материалов и цветов -->
+    <material name="gray">
+        <color rgba="0.4 0.4 0.4 1"/>
+    </material>
+
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+</robot>
